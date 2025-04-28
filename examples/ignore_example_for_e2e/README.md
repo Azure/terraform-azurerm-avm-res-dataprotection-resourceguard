@@ -11,10 +11,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 4.21"
     }
-    modtm = {
-      source  = "azure/modtm"
-      version = "~> 0.3"
-    }
+    #    modtm = {
+    #      source  = "azure/modtm"
+    #      version = "~> 0.3"
+    #    }
     random = {
       source  = "hashicorp/random"
       version = "~> 3.5"
@@ -61,11 +61,10 @@ module "test" {
   source = "../../"
   # source             = "Azure/avm-<res/ptn>-<name>/azurerm"
   # ...
-  location            = azurerm_resource_group.this.location
-  name                = "TODO" # TODO update with module.naming.<RESOURCE_TYPE>.name_unique
-  resource_group_name = azurerm_resource_group.this.name
-
-  enable_telemetry = var.enable_telemetry # see variables.tf
+  location          = azurerm_resource_group.this.location
+  name              = "resourceguard" # TODO update with module.naming.<RESOURCE_TYPE>.name_unique
+  resource_group_id = azurerm_resource_group.this.id
+  enable_telemetry  = var.enable_telemetry # see variables.tf
 }
 ```
 
@@ -77,8 +76,6 @@ The following requirements are needed by this module:
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.5)
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.21)
-
-- <a name="requirement_modtm"></a> [modtm](#requirement\_modtm) (~> 0.3)
 
 - <a name="requirement_random"></a> [random](#requirement\_random) (~> 3.5)
 

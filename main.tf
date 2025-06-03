@@ -1,5 +1,7 @@
 resource "azapi_resource" "resource_guard" {
-  type = "Microsoft.DataProtection/ResourceGuards@2022-05-01"
+  name      = var.name
+  parent_id = var.resource_group_id
+  type      = "Microsoft.DataProtection/ResourceGuards@2022-05-01"
   body = {
     "location" : var.location,
     "tags" : var.tags,
@@ -7,8 +9,6 @@ resource "azapi_resource" "resource_guard" {
       "vaultCriticalOperationExclusionList" : var.vault_critical_operation_exclusion_list
     }
   }
-  name      = var.name
-  parent_id = var.resource_group_id
 
   timeouts {
     create = "1h30m"

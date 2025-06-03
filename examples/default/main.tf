@@ -14,8 +14,6 @@ provider "azurerm" {
       prevent_deletion_if_contains_resources = false
     }
   }
-  #subscription_id = "09d7d81e-6d46-407a-82be-1b80d1e861d6"
-  # resource_provider_registrations = "all"
 }
 
 locals {
@@ -37,10 +35,11 @@ resource "azurerm_resource_group" "avmrg" {
 }
 
 module "default" {
-  source                                  = "../../"
-  name                                    = local.name
+  source = "../../"
+
   location                                = local.location
-  vault_critical_operation_exclusion_list = local.vault_critical_operation_exclusion_list
+  name                                    = local.name
   resource_group_id                       = azurerm_resource_group.avmrg.id
   tags                                    = local.tags
+  vault_critical_operation_exclusion_list = local.vault_critical_operation_exclusion_list
 }

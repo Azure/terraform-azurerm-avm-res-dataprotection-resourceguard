@@ -56,7 +56,7 @@ variable "recovery_servies_vault_associations" {
   type = map(object({
     resource_id = string
   }))
-  default     = null
+  default     = {}
   description = <<DESCRIPTION
 A map of objects to asssociate recovery services vaults to the resource guard.
 

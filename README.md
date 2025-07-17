@@ -99,7 +99,7 @@ map(object({
   }))
 ```
 
-Default: `null`
+Default: `{}`
 
 ### <a name="input_role_assignments"></a> [role\_assignments](#input\_role\_assignments)
 

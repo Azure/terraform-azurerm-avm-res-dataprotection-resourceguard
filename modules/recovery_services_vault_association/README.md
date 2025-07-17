@@ -77,6 +77,10 @@ The following outputs are exported:
 
 Description: The resource id of the resource guard.
 
+### <a name="output_resource_id"></a> [resource\_id](#output\_resource\_id)
+
+Description: The resource id for the association resource.
+
 ## Modules
 
 No modules.

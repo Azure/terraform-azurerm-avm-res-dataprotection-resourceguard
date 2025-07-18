@@ -1,28 +1,9 @@
 <!-- BEGIN_TF_DOCS -->
-# Default example
+# Associate resource guard with a recovery services vault
 
-This deploys the module in its simplest form.
+This is an example that creates a resource guard and a recovery services vault and associate them together.
 
 ```hcl
-terraform {
-  required_version = ">= 1.9, < 2.0"
-
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 4.0"
-    }
-  }
-}
-
-provider "azurerm" {
-  features {
-    resource_group {
-      prevent_deletion_if_contains_resources = false
-    }
-  }
-}
-
 locals {
   location = "southeastasia"
   name     = "fixresourceguard"
@@ -41,12 +22,24 @@ resource "azurerm_resource_group" "avmrg" {
   name     = "avmrg"
 }
 
-module "default" {
+resource "azurerm_recovery_services_vault" "rsv" {
+  location            = local.location
+  name                = "example-recovery-vault"
+  resource_group_name = azurerm_resource_group.avmrg.name
+  sku                 = "Standard"
+}
+
+module "resource_guard" {
   source = "../../"
 
-  location                                = local.location
-  name                                    = local.name
-  resource_group_id                       = azurerm_resource_group.avmrg.id
+  location          = local.location
+  name              = local.name
+  resource_group_id = azurerm_resource_group.avmrg.id
+  recovery_servies_vault_associations = {
+    assoc1 = {
+      resource_id = azurerm_recovery_services_vault.rsv.id
+    }
+  }
   tags                                    = local.tags
   vault_critical_operation_exclusion_list = local.vault_critical_operation_exclusion_list
 }
@@ -59,12 +52,13 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.9, < 2.0)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (>= 4.0, < 5.0)
 
 ## Resources
 
 The following resources are used by this module:
 
+- [azurerm_recovery_services_vault.rsv](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/recovery_services_vault) (resource)
 - [azurerm_resource_group.avmrg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) (resource)
 
 <!-- markdownlint-disable MD013 -->
@@ -84,7 +78,7 @@ No outputs.
 
 The following Modules are called:
 
-### <a name="module_default"></a> [default](#module\_default)
+### <a name="module_resource_guard"></a> [resource\_guard](#module\_resource\_guard)
 
 Source: ../../
 

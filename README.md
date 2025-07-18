@@ -85,6 +85,22 @@ object({
 
 Default: `null`
 
+### <a name="input_recovery_servies_vault_associations"></a> [recovery\_servies\_vault\_associations](#input\_recovery\_servies\_vault\_associations)
+
+Description: A map of objects to asssociate recovery services vaults to the resource guard.
+
+- `resource_id` - resource id of the recovery services vault to associate to the resource guard.
+
+Type:
+
+```hcl
+map(object({
+    resource_id = string
+  }))
+```
+
+Default: `{}`
+
 ### <a name="input_role_assignments"></a> [role\_assignments](#input\_role\_assignments)
 
 Description: A map of role assignments to create on this resource. The map key is deliberately arbitrary to avoid issues where map keys maybe unknown at plan time.
@@ -145,7 +161,13 @@ Description: The resource id for the parent resource.
 
 ## Modules
 
-No modules.
+The following Modules are called:
+
+### <a name="module_recovery_services_vault_associations"></a> [recovery\_services\_vault\_associations](#module\_recovery\_services\_vault\_associations)
+
+Source: ./modules/recovery_services_vault_association
+
+Version:
 
 <!-- markdownlint-disable-next-line MD041 -->
 ## Data Collection

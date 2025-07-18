@@ -11,8 +11,8 @@ variable "name" {
   validation {
     #condition     = can(regex("TODO", var.name))
     #error_message = "The name must be TODO." # TODO remove the example below once complete:
-    condition     = can(regex("^[a-z0-9]{5,50}$", var.name))
-    error_message = "The name must be between 5 and 50 characters long and can only contain lowercase letters and numbers."
+    condition     = can(regex("^[a-zA-Z0-9-]{2,64}$", var.name))
+    error_message = "The name must be between 2 and 64 characters long and can only contain letters, numbers and hyphens."
   }
 }
 
@@ -50,6 +50,18 @@ DESCRIPTION
     condition     = var.lock != null ? contains(["CanNotDelete", "ReadOnly"], var.lock.kind) : true
     error_message = "The lock level must be one of: 'None', 'CanNotDelete', or 'ReadOnly'."
   }
+}
+
+variable "recovery_servies_vault_associations" {
+  type = map(object({
+    resource_id = string
+  }))
+  default     = {}
+  description = <<DESCRIPTION
+A map of objects to asssociate recovery services vaults to the resource guard.
+
+- `resource_id` - resource id of the recovery services vault to associate to the resource guard.
+DESCRIPTION
 }
 
 variable "role_assignments" {

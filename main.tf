@@ -16,6 +16,15 @@ resource "azapi_resource" "resource_guard" {
   }
 }
 
+module "recovery_services_vault_associations" {
+  source   = "./modules/recovery_services_vault_association"
+  for_each = var.recovery_servies_vault_associations
+
+  location                            = var.location
+  recovery_services_vault_resource_id = each.value.resource_id
+  resource_guard_resource_id          = azapi_resource.resource_guard.id
+}
+
 # required AVM resources interfaces
 resource "azurerm_management_lock" "this" {
   count = var.lock != null ? 1 : 0

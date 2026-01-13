@@ -52,8 +52,8 @@ module "avm_interfaces" {
 resource "azapi_resource" "lock" {
   count = var.lock != null ? 1 : 0
 
-  name           = module.avm_interfaces.lock_azapi.name != null ? module.avm_interfaces.lock_azapi.name : "lock-${azapi_resource.private_dns_zone.name}"
-  parent_id      = azapi_resource.private_dns_zone.id
+  name           = module.avm_interfaces.lock_azapi.name != null ? module.avm_interfaces.lock_azapi.name : "lock-${azapi_resource.resource_guard.name}"
+  parent_id      = azapi_resource.resource_guard.id
   type           = module.avm_interfaces.lock_azapi.type
   body           = module.avm_interfaces.lock_azapi.body
   create_headers = var.enable_telemetry ? { "User-Agent" : local.avm_azapi_header } : null
@@ -71,5 +71,5 @@ resource "azapi_resource" "lock" {
 resource "time_sleep" "wait_for_resource_destroy" {
   destroy_duration = "20s"
 
-  depends_on = [azapi_resource.private_dns_zone]
+  depends_on = [azapi_resource.resource_guard]
 }

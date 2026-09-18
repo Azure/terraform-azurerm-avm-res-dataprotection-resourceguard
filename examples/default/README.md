@@ -48,7 +48,7 @@ module "default" {
   location                                = local.location
   name                                    = local.name
   resource_group_id                       = azurerm_resource_group.avmrg.id
-  enable_telemetry                        = false
+  enable_telemetry                        = var.enable_telemetry
   tags                                    = local.tags
   vault_critical_operation_exclusion_list = local.vault_critical_operation_exclusion_list
 }
@@ -76,7 +76,17 @@ No required inputs.
 
 ## Optional Inputs
 
-No optional inputs.
+The following input variables are optional (have default values):
+
+### <a name="input_enable_telemetry"></a> [enable\_telemetry](#input\_enable\_telemetry)
+
+Description: This variable controls whether or not telemetry is enabled for the module.  
+For more information see <https://aka.ms/avm/telemetryinfo>.  
+If it is set to false, then no telemetry will be collected.
+
+Type: `bool`
+
+Default: `false`
 
 ## Outputs
 

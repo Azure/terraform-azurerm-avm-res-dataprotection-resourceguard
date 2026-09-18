@@ -41,7 +41,7 @@ module "default" {
   location                                = local.location
   name                                    = local.name
   resource_group_id                       = azurerm_resource_group.avmrg.id
-  enable_telemetry                        = false
+  enable_telemetry                        = var.enable_telemetry
   tags                                    = local.tags
   vault_critical_operation_exclusion_list = local.vault_critical_operation_exclusion_list
 }

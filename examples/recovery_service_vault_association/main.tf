@@ -29,7 +29,7 @@ module "resource_guard" {
   location          = local.location
   name              = local.name
   resource_group_id = azurerm_resource_group.avmrg.id
-  enable_telemetry  = false
+  enable_telemetry  = var.enable_telemetry
   recovery_servies_vault_associations = {
     assoc1 = {
       resource_id = azurerm_recovery_services_vault.rsv.id

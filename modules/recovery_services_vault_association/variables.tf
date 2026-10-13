@@ -15,3 +15,9 @@ variable "resource_guard_resource_id" {
   description = "The resource id of the resource guard."
   nullable    = false
 }
+
+variable "tags" {
+  type        = map(string)
+  default     = null
+  description = "(Optional) Tags of the resource."
+}

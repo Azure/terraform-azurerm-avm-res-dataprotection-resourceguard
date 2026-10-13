@@ -8,4 +8,5 @@ resource "azapi_resource" "recovery_services_vault_association" {
       resourceGuardResourceId = var.resource_guard_resource_id
     }
   }
+  tags = var.tags
 }

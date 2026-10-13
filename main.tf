@@ -1,14 +1,14 @@
 resource "azapi_resource" "resource_guard" {
+  location  = var.location
   name      = var.name
   parent_id = var.resource_group_id
   type      = "Microsoft.DataProtection/ResourceGuards@2022-05-01"
   body = {
-    "location" : var.location,
-    "tags" : var.tags,
     "properties" : {
       "vaultCriticalOperationExclusionList" : var.vault_critical_operation_exclusion_list
     }
   }
+  tags = var.tags
 
   timeouts {
     create = "1h30m"
@@ -23,6 +23,7 @@ module "recovery_services_vault_associations" {
   location                            = var.location
   recovery_services_vault_resource_id = each.value.resource_id
   resource_guard_resource_id          = azapi_resource.resource_guard.id
+  tags                                = var.tags
 }
 
 # required AVM resources interfaces

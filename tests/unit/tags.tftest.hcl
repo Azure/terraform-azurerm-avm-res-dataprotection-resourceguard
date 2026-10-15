@@ -1,7 +1,12 @@
-mock_provider "azapi" {}
+mock_provider "azapi" {
+  mock_data "azapi_client_config" {
+    defaults = {
+      subscription_resource_id = "/subscriptions/00000000-0000-0000-0000-000000000000"
+    }
+  }
+}
+
 mock_provider "azurerm" {}
-mock_provider "modtm" {}
-mock_provider "random" {}
 
 variables {
   location          = "southeastasia"
@@ -14,8 +19,8 @@ run "default_tags" {
   providers = {
     azapi   = azapi
     azurerm = azurerm
-    modtm   = modtm
-    random  = random
+
+
   }
 
   assert {
@@ -29,8 +34,8 @@ run "empty_tags" {
   providers = {
     azapi   = azapi
     azurerm = azurerm
-    modtm   = modtm
-    random  = random
+
+
   }
 
   variables {
@@ -48,8 +53,8 @@ run "tags_and_existing_scopes" {
   providers = {
     azapi   = azapi
     azurerm = azurerm
-    modtm   = modtm
-    random  = random
+
+
   }
 
   variables {
